@@ -1,0 +1,8 @@
+#!/bin/sh
+
+PORTS_PACKAGES_XML=http://ports.funtoo.org/packages.xml
+
+cat=${1%/*}
+pkg=${1#*/}
+
+curl -s $PORTS_PACKAGES_XML | xmllint --xpath "/packages/category[@name='$cat']/package[@name='$pkg']/@repository" -
