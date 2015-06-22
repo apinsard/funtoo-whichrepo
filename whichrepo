@@ -2,7 +2,11 @@
 
 PORTS_PACKAGES_XML=http://ports.funtoo.org/packages.xml
 
+fetch() {
+  curl -s $PORTS_PACKAGES_XML | xmllint --xpath "string(/packages/category[@name='$1']/package[@name='$2']/@repository)" - 2>/dev/null
+}
+
 cat=${1%/*}
 pkg=${1#*/}
 
-curl -s $PORTS_PACKAGES_XML | xmllint --xpath "/packages/category[@name='$cat']/package[@name='$pkg']/@repository" -
+res=$(fetch $cat $pkg) && echo $res || echo "gentoo"
