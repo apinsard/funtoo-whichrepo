@@ -9,4 +9,5 @@ fetch() {
 cat=${1%/*}
 pkg=${1#*/}
 
-res=$(fetch $cat $pkg) && echo $res || echo "gentoo"
+res=$(fetch $cat $pkg)
+[ -n "$res" ] && echo $res || echo "gentoo?"
